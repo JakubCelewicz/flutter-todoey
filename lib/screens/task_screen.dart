@@ -5,6 +5,10 @@ class TaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.lightBlue,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.lightBlueAccent,
+          child: Icon(Icons.add),
+        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -40,8 +44,11 @@ class TaskScreen extends StatelessWidget {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     )),
+                child: ListView(
+                  children: <Widget>[],
+                ),
               ),
-            )
+            ),
           ],
         ));
   }
