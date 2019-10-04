@@ -1,17 +1,31 @@
 import 'package:flutter/material.dart';
 // import 'package:todoey_flutter/TodoManager.dart';
 import 'package:todoey_flutter/widgets/tasks_list.dart';
+import 'add_task_screen.dart';
 
 class TaskScreen extends StatelessWidget {
-  @override
-  // TodoManager todoManager = TodoManager();
+  // 1
+  //  Widget buildBottomSheet(BuildContext context) {
+  ////    return Container(
+  ////      child: Center(child: Text('this is bottom text')),
+  ////    );
+  ////  }
 
+  // 2
+  //  Widget buildBottomSheet(BuildContext context) => Container();
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlue,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print('add todo');
+          // 1 and 2
+          // showModalBottomSheet(context: context, builder: buildBottomSheet);
+          // shortest way of 1 and 2
+          showModalBottomSheet(
+              context: context, builder: (context) => AddTaskScreen());
         },
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(Icons.add),
@@ -33,7 +47,7 @@ class TaskScreen extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                Text('Todey',
+                Text('Todoey',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 50.0,
