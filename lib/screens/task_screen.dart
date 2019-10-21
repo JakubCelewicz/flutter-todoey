@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 // import 'package:todoey_flutter/TodoManager.dart';
 import 'package:todoey_flutter/widgets/tasks_list.dart';
 import 'add_task_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/Tasks.dart';
 
-class TaskScreen extends StatelessWidget {
-  // 1
-  //  Widget buildBottomSheet(BuildContext context) {
-  ////    return Container(
-  ////      child: Center(child: Text('this is bottom text')),
-  ////    );
-  ////  }
+class TaskScreen extends StatefulWidget {
+  @override
+  _TaskScreenState createState() => _TaskScreenState();
+}
 
-  // 2
-  //  Widget buildBottomSheet(BuildContext context) => Container();
+class _TaskScreenState extends State<TaskScreen> {
+  void handleAddTask() {}
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +19,14 @@ class TaskScreen extends StatelessWidget {
       backgroundColor: Colors.lightBlue,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('add todo');
-          // 1 and 2
-          // showModalBottomSheet(context: context, builder: buildBottomSheet);
-          // shortest way of 1 and 2
           showModalBottomSheet(
-              context: context, builder: (context) => AddTaskScreen());
+              context: context,
+              builder: (context) => AddTaskScreen((newTaskTitle) {
+                    setState(() {
+                      Provider.of<Tasks>(context).addTask(newTaskTitle);
+                    });
+                    Navigator.pop(context);
+                  }));
         },
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(Icons.add),
@@ -35,7 +36,7 @@ class TaskScreen extends StatelessWidget {
         children: <Widget>[
           Container(
             padding:
-                EdgeInsets.only(top: 60, left: 30.0, right: 30, bottom: 30),
+                EdgeInsets.only(top: 40, left: 30.0, right: 30, bottom: 30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -53,7 +54,9 @@ class TaskScreen extends StatelessWidget {
                       fontSize: 50.0,
                       fontWeight: FontWeight.w700,
                     )),
-                Text('12 Tasks', style: TextStyle(color: Colors.white)),
+                Text(
+                    'Tasks number : ${Provider.of<Tasks>(context).tasks.length}',
+                    style: TextStyle(color: Colors.white)),
               ],
             ),
           ),
@@ -65,7 +68,7 @@ class TaskScreen extends StatelessWidget {
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   )),
-              child: new TasksList(),
+              child: new TasksList(Provider.of<Tasks>(context).tasks),
             ),
           ),
         ],
